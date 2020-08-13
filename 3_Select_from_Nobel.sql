@@ -1,26 +1,53 @@
--- 1. 
--- The example uses a WHERE clause to show the population of 'France'. 
--- Note that strings (pieces of text that are data) should be in 'single quotes';
+-- 1. Change the query shown so that it displays Nobel prizes for 1950.
 
--- Modify it to show the population of Germany
 
-SELECT population FROM world
-  WHERE name = 'Germany';
+SELECT yr, subject, winner
+  FROM nobel
+ WHERE yr = 1950;
 
--- 2.
--- Checking a list The word IN allows us to check if an item is in a list. 
--- The example shows the name and population for the countries 'Brazil', 'Russia', 'India' and 'China'.
+-- 2. Show who won the 1962 prize for Literature.
 
--- Show the name and the population for 'Sweden', 'Norway' and 'Denmark'.
 
-SELECT name, population FROM world
-  WHERE name IN ('Sweden', 'Norway', 'Denmark');
+SELECT winner
+  FROM nobel
+ WHERE yr = 1962
+   AND subject = 'Literature';
 
---   3.
--- Which countries are not too small and not too big? BETWEEN allows range checking 
--- (range specified is inclusive of boundary values). The example below shows countries 
--- with an area of 250,000-300,000 sq. km. Modify it to show the country and the area for c
--- ountries with an area between 200,000 and 250,000.
+-- 3. Show the year and subject that won 'Albert Einstein' his prize.
 
-SELECT name, area FROM world
-  WHERE area BETWEEN 200000 AND 250000
+
+SELECT yr, subject
+  FROM nobel
+WHERE winner = 'Albert Einstein';
+
+-- 4. Give the name of the 'Peace' winners since the year 2000, including 2000.
+
+
+SELECT winner
+  FROM nobel
+WHERE yr >= 2000
+AND subject = 'Peace';
+
+-- 5. Show all details (yr, subject, winner) of the Literature prize winners for 1980 to 1989 inclusive.
+
+
+SELECT *
+  FROM nobel
+WHERE subject = 'Literature'
+AND yr BETWEEN 1980 AND 1989;
+
+-- 6. Show all details of the presidential winners:
+-- Theodore Roosevelt
+-- Woodrow Wilson
+-- Jimmy Carter
+-- Barack Obama
+
+
+SELECT * FROM nobel
+ WHERE winner IN ('Theodore Roosevelt', 'Woodrow Wilson', 'Jimmy Carter', 'Barack Obama');
+
+-- 7. Show the winners with first name John
+
+
+SELECT winner FROM nobel
+WHERE winner LIKE 'John%';
