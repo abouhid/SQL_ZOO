@@ -1,26 +1,48 @@
--- 1. 
--- The example uses a WHERE clause to show the population of 'France'. 
--- Note that strings (pieces of text that are data) should be in 'single quotes';
+/* 1. Show the total population of the world.
+*/
 
--- Modify it to show the population of Germany
+SELECT SUM(population) FROM world;
 
-SELECT population FROM world
-  WHERE name = 'Germany';
+/* 2. List all the continents - just once each.
+*/
 
--- 2.
--- Checking a list The word IN allows us to check if an item is in a list. 
--- The example shows the name and population for the countries 'Brazil', 'Russia', 'India' and 'China'.
+SELECT DISTINCT(continent) FROM world;
 
--- Show the name and the population for 'Sweden', 'Norway' and 'Denmark'.
+/* 3. Give the total GDP of Africa
+*/
 
-SELECT name, population FROM world
-  WHERE name IN ('Sweden', 'Norway', 'Denmark');
+SELECT SUM(GDP) FROM world
+WHERE continent = 'Africa';
 
---   3.
--- Which countries are not too small and not too big? BETWEEN allows range checking 
--- (range specified is inclusive of boundary values). The example below shows countries 
--- with an area of 250,000-300,000 sq. km. Modify it to show the country and the area for c
--- ountries with an area between 200,000 and 250,000.
+/* 4. How many countries have an area of at least 1000000
+*/
 
-SELECT name, area FROM world
-  WHERE area BETWEEN 200000 AND 250000
+SELECT COUNT(name) FROM world
+WHERE area >= 1000000;
+
+/* 5. What is the total population of ('Estonia', 'Latvia', 'Lithuania')
+*/
+
+SELECT SUM(population) FROM world
+WHERE name IN ('Estonia', 'Latvia', 'Lithuania');
+
+/* 6. For each continent show the continent and number of countries.
+*/
+
+SELECT continent, COUNT(name)
+  FROM world
+ GROUP BY continent;
+
+/* 7. For each continent show the continent and number of countries with populations of at least 10 million.
+*/
+
+SELECT continent, COUNT(name) FROM world
+WHERE population >= 10000000
+GROUP BY continent;
+
+/* 8. List the continents that have a total population of at least 100 million.
+*/
+
+SELECT continent FROM world
+GROUP BY continent
+HAVING SUM(population) >= 100000000;
